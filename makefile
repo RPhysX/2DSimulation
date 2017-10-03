@@ -1,9 +1,20 @@
-CC=g++
-CFLAGS=-I.
-DEPS = src/Utils/singleton.h src/States/state.h src/Application/application.h
+TARGET ?= a.out
+SRC_DIRS ?= ./src
 
-%.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+SRCS := $(shell find $(SRC_DIRS) -name *.cpp -or -name *.c -or -name *.s)
+OBJS := $(addsuffix .o,$(basename $(SRCS)))
+DEPS := $(OBJS:.o=.d)
 
-hellomake: singleton.o state.o application.o
-	g++ -o hellomake main.cpp singleton.o state.o application.o -I.
+INC_DIRS := $(shell find $(SRC_DIRS) -type d)
+INC_FLAGS := $(addprefix -I,$(INC_DIRS))
+
+CPPFLAGS ?= $(INC_FLAGS) -MMD -MP
+
+$(TARGET): $(OBJS)
+	$(CC) $(LDFLAGS) $(OBJS) -o $@ $(LOADLIBES) $(LDLIBS)
+
+.PHONY: clean
+clean:
+	$(RM) $(TARGET) $(OBJS) $(DEPS)
+
+-include $(DEPS)
