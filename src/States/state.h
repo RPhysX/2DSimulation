@@ -6,7 +6,7 @@
 *  2DSimulation
 *
 *  Created by Primemaster on 03/10/2017.
-*  Copyright 2017 RPhysX. All rights reserved.
+*  Copyright 2017 RPhysX.
 *
 *  =======================================================
 */
@@ -16,15 +16,13 @@ class Application;
 /*
 Bases: null
 Definition: A class wich holds all the data for a engine state
-Implementation: Create a state when a new elemnt (eg. GUI, Screen) is created. Meant for implementation [virtual methods]
+Implementation: Create a state when a new element (eg. GUI, Screen) is created. Meant for implementation [virtual methods]
 */
-class State : public Singleton<State>
+class State
 {
-private:
-	State(); //Private ctor
-	~State(); //Private dtor
-	friend class Singleton<State>;
-	/* End of singleton declaration */
+public:
+	State() = default; //Public ctor
+	~State() = default; //Public dtor
 
 public:
 	virtual void initialize(Application * app) = 0;

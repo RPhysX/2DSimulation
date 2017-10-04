@@ -1,13 +1,14 @@
 #pragma once
 #include <stack>
 #include "../Utils/singleton.h"
+#include <SDL.h>
 /*
 *  =======================================================
 *  application.h
 *  2DSimulation
 *
 *  Created by Primemaster on 03/10/2017.
-*  Copyright 2017 RPhysX. All rights reserved.
+*  Copyright 2017 RPhysX.
 *
 *  =======================================================
 */
@@ -22,7 +23,7 @@ Implementation: State management and main loop organization
 class Application : public Singleton<Application>
 {
 private:
-	Application(); //Private ctor
+	Application() = default; //Private ctor
 	~Application(); //Private dtor
 	friend class Singleton<Application>;
 	/* End of singleton declaration */
@@ -30,7 +31,7 @@ private:
 public:
 	/* Management methods */
 	
-	void initialize();
+	void initialize(const char* title);
 	void cleanup();
 	bool running();
 	void quit();
@@ -52,5 +53,10 @@ public:
 
 private:
 	std::stack<State*> states;
+
+
+private:
+	SDL_Window* window;
+	SDL_Renderer* renderer;
 };
 

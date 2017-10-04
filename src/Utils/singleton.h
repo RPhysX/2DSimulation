@@ -7,7 +7,7 @@
 *  2DSimulation
 *
 *  Created by Primemaster on 03/10/2017.
-*  Copyright 2017 RPhysX. All rights reserved.
+*  Copyright 2017 RPhysX.
 *
 *  =======================================================
 */
@@ -30,8 +30,13 @@ public:
 public:
 	static T * Instance()
 	{
+		static bool first = true;
 		static T instance; //Ensures the instance is deleted automatically in the end of the program lifetime
-		std::cout << "Singleton of type " << typeid(T).name() << " was instatiated successfully with ID: [" << typeid(T).raw_name() << "]" << std::endl;
+		if (first)
+		{
+			std::cout << "Singleton of type [" << typeid(T).name() << "] was instatiated successfully with ID: [" << typeid(T).raw_name() << "]" << std::endl;
+			first = false;
+		}
 
 		return &instance;
 	}
