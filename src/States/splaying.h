@@ -1,11 +1,14 @@
 #pragma once
 #include "state.h"
+#include "../Renderer/renderer.h"
+#include "../Core/entity.h"
+#include "../Common/texture.h"
 /*
 *  =======================================================
 *  splaying.h
 *  2DSimulation
 *
-*  Created by Primemaster on 03/10/2017.
+*  Created by Primemaster on 04/10/2017.
 *  Copyright 2017 RPhysX.
 *
 *  =======================================================
@@ -34,5 +37,11 @@ public:
 	void handleEvents(Application * app);
 	void update(Application * app);
 	void draw(Application * app);
+
+
+
+	Renderer masterRenderer;
+	Entity test[2];
+	Texture tex[2];
 };
 

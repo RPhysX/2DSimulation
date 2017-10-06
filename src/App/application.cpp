@@ -10,9 +10,7 @@
 Application::~Application()
 {
 	SDL_DestroyWindow(window);
-	SDL_DestroyRenderer(renderer);
 	window = NULL;
-	renderer = NULL;
 }
 
 void Application::initialize(const char* title)
@@ -30,15 +28,6 @@ void Application::initialize(const char* title)
 		}
 		else
 		{
-			renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-			if (renderer == NULL)
-			{
-				std::cout << "Failed to initialize SDL2 renderer. Error code: " << SDL_GetError() << std::endl;
-			}
-			else
-			{
-				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-
 				//Initialize PNG loading
 				int imgFlags = IMG_INIT_PNG;
 				if (!IMG_Init(imgFlags) & imgFlags)
@@ -47,7 +36,6 @@ void Application::initialize(const char* title)
 				}
 			}
 		}
-	}
 }
 
 void Application::cleanup()
@@ -120,4 +108,9 @@ void Application::update()
 void Application::draw()
 {
 	states.top()->draw(Application::Instance());
+}
+
+SDL_Window * Application::rWindow()
+{
+	return window;
 }

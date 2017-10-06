@@ -50,6 +50,9 @@ public:
 	void update();
 	void draw();
 
+	/* Get Methods */
+	SDL_Window* rWindow();
+
 
 private:
 	std::stack<State*> states;
@@ -57,6 +60,5 @@ private:
 
 private:
 	SDL_Window* window;
-	SDL_Renderer* renderer;
 };
 

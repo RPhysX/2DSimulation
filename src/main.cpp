@@ -28,7 +28,9 @@ int main(int argc, char** argv)
 	app->pushState(SPlaying::Instance());
 	while (true)
 	{
-		//holder
+		app->handleEvents();
+		app->update();
+		app->draw();
 	}
 	return 0;
 }
