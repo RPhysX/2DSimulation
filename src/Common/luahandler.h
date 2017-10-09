@@ -1,7 +1,22 @@
 #pragma once
 #include <iostream>
 #include <string>
+/*
+*  =======================================================
+*  luahandler.h
+*  2DSimulation
+*
+*  Created by Primemaster on 05/10/2017.
+*  Copyright 2017 RPhysX.
+*
+*  =======================================================
+*/
 
+/*
+Bases: null
+Definition: Lua programming language wrapper which takes default C<->Lua handling
+Implementation: Use with Lua scripts
+*/
 extern "C" {
 	#include <lua.h>
 	#include <lauxlib.h>

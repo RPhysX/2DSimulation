@@ -26,6 +26,14 @@ void Renderer::push(Entity * entity)
 	entities.push_back(entity);
 }
 
+void Renderer::pushV(Entity** entities, unsigned int count)
+{
+	for (unsigned int i = 0; i < count; i++)
+	{
+		this->entities.push_back(entities[i]);
+	}
+}
+
 void Renderer::update()
 {
 }
@@ -35,7 +43,7 @@ void Renderer::draw()
 	SDL_RenderClear(renderer);
 
 	for(auto* ent : entities)
-		SDL_RenderCopy(renderer, ent->getModel()->getTexture(), NULL, NULL);
+		SDL_RenderCopy(renderer, ent->getModel()->getTexture(), NULL, ent->getSize());
 
 	SDL_RenderPresent(renderer);
 }

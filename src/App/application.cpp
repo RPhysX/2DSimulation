@@ -36,6 +36,7 @@ void Application::initialize(const char* title)
 				}
 			}
 		}
+	run = true;
 }
 
 void Application::cleanup()
@@ -50,11 +51,14 @@ void Application::cleanup()
 
 bool Application::running()
 {
-	return false;
+	return run;
 }
 
 void Application::quit()
 {
+	IMG_Quit();
+	SDL_Quit();
+	run = false;
 }
 
 void Application::pushState(State * state)

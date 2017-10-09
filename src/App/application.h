@@ -56,6 +56,7 @@ public:
 
 private:
 	std::stack<State*> states;
+	bool run;
 
 
 private:

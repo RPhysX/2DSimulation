@@ -26,7 +26,7 @@ int main(int argc, char** argv)
 	Application* app = Application::Instance();
 	app->initialize("RPhysX 1.0");
 	app->pushState(SPlaying::Instance());
-	while (true)
+	while (app->running())
 	{
 		app->handleEvents();
 		app->update();

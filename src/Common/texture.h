@@ -26,7 +26,8 @@ class Texture
 public:
 	Texture() = default;
 	~Texture();
-	friend void Entity::loadTexture(Texture& tex, Renderer& rend);
+	friend void Entity::loadTexture(Renderer& rend);
+	friend void Entity::setModel(const std::string& path);
 
 	SDL_Texture* getTexture();
 	void Texture::setPath(const std::string& path);

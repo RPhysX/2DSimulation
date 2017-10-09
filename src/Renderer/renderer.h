@@ -29,6 +29,7 @@ public:
 	~Renderer();
 
 	void push(Entity* entity);
+	void pushV(Entity** entities, unsigned int count);
 	void update();
 	void draw();
 

@@ -3,6 +3,7 @@
 #include "../Renderer/renderer.h"
 #include "../Core/entity.h"
 #include "../Common/texture.h"
+#include "../Utils/common.h"
 /*
 *  =======================================================
 *  splaying.h
@@ -41,7 +42,6 @@ public:
 
 
 	Renderer masterRenderer;
-	Entity test[2];
-	Texture tex[2];
+	Entity* test[2];
 };
 

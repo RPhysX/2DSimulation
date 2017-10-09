@@ -6,7 +6,7 @@
 
 
 
-Entity::Entity()
+Entity::Entity() : size(new SDL_Rect()), model(new Texture())
 {
 }
 
@@ -15,22 +15,35 @@ Entity::~Entity()
 {
 }
 
-void Entity::loadTexture(Texture & tex, Renderer& rend)
+void Entity::loadTexture(Renderer& rend)
 {
-	SDL_Surface* img = IMG_Load(tex.path.c_str());
+	SDL_Surface* img = IMG_Load(model->path.c_str());
 	if (img == NULL)
 	{
 		throw std::exception("Failed to load image from path.");
 	}
 	else
 	{
-		tex.texture = SDL_CreateTextureFromSurface(rend.getInstance(), img);
+		size->w = img->w;
+		size->h = img->h;
+		size->x = 0;
+		size->y = 0;
+		model->texture = SDL_CreateTextureFromSurface(rend.getInstance(), img);
 		SDL_FreeSurface(img);
-		model = &tex;
 	}
+}
+
+void Entity::setModel(const std::string & path)
+{
+	model->path = path;
 }
 
 Texture * Entity::getModel()
 {
 	return model;
+}
+
+const SDL_Rect * Entity::getSize() const
+{
+	return size;
 }

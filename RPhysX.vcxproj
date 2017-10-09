@@ -145,6 +145,8 @@
     <ClInclude Include="src\Renderer\renderer.h" />
     <ClInclude Include="src\States\splaying.h" />
     <ClInclude Include="src\States\state.h" />
+    <ClInclude Include="src\Utils\common.h" />
+    <ClInclude Include="src\Utils\math.h" />
     <ClInclude Include="src\Utils\singleton.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
