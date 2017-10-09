@@ -20,9 +20,9 @@ Implementation: Use as code shrinkers (e.g. wrappers)
 namespace common
 {
 	template<typename Spec>
-	inline Entity * loadEntity(const std::string& texturedModel, Renderer& renderer)
+	inline Spec * loadEntity(const std::string& texturedModel, Renderer& renderer)
 	{
-		Entity* returned = new Spec();
+		Spec* returned = new Spec();
 		returned->setModel(texturedModel);
 		try
 		{

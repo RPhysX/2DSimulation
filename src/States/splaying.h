@@ -4,6 +4,7 @@
 #include "../Core/entity.h"
 #include "../Common/texture.h"
 #include "../Utils/common.h"
+#include "../Core/atom.h"
 /*
 *  =======================================================
 *  splaying.h
@@ -40,8 +41,9 @@ public:
 	void draw(Application * app);
 
 
-
+private:
 	Renderer masterRenderer;
 	Entity* test[2];
+	Atom* atm[2];
 };
 

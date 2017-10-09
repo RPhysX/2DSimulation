@@ -95,7 +95,7 @@ namespace math
 		}
 
 		template<typename T>
-		inline Vector2<Polar> cartesian() //vector normalization
+		inline Vector2<Polar> cartesian() //vector normalization to cartesian coordenates
 		{
 			return Vector2<T>(radius * cos(theta), radius * sin(theta));
 		}

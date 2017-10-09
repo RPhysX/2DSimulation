@@ -33,12 +33,14 @@ public:
 	Texture* getModel();
 	const SDL_Rect * getSize() const;
 
+	void setPosition(float x, float y);
+	
+
 private:
 	SDL_Rect* size;
 	Texture* model;
 
 	math::Vector2f position;
 	math::Vector2f velocity;
-
 };
 
