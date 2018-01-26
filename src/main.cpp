@@ -2,6 +2,7 @@
 #include "App\application.h"
 #include "States\state.h"
 #include "States\splaying.h"
+
 /*
 *  2DSimulation
 *  Copyright(C) 2017 RPhysX
@@ -20,7 +21,6 @@
 *  along with this program.If not, see <http://www.gnu.org/licenses/>
 */
 
-#undef main
 int main(int argc, char** argv)
 {
 	Application* app = Application::Instance();

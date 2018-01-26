@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+/.vs/2DSimulation/v15/Browse.VC.db
+/.vs/RPhysX - 2D/v15
+/.vs
+/Debug/RPhysX - 2D.tlog

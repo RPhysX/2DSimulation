@@ -105,3 +105,5 @@ namespace math
 	typedef Vector2<float> Vector2f;
 	typedef Vector2<Polar> PVector2f;
 }
+
+//Marmonte is love, Duramonte is life
