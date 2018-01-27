@@ -17,6 +17,7 @@ Bases: null
 Definition: Math helper functions and definitions
 Implementation: Math functions and elements (e.g. Vectors)
 */
+
 namespace math
 {
 
