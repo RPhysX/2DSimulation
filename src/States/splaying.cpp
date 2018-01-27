@@ -56,7 +56,7 @@ void SPlaying::handleEvents(Application * app)
 
 void SPlaying::update(Application * app)
 {
-	static float a, b = 0.0f;
+	static float a, b = 0;
 	atm[0]->setPosition(a+=0.01f, b+=0.0075f);
 
 }
