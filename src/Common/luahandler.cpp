@@ -1,24 +1,19 @@
 #include "luahandler.h"
 
-
-
-LuaHandler::LuaHandler(const std::string& filename)
+LuaHandler::LuaHandler(const std::string & fileName)
 {
+	this->fileName = fileName;
 	L = luaL_newstate();
-	if (luaL_loadfile(L, filename.c_str()) || lua_pcall(L, 0, 0, 0))
+	if (luaL_dofile(L, fileName.c_str()))
 	{
-		std::cout << "Error loading lua script from [" << filename << "]" << std::endl;
-		L = NULL;
+		std::cout << "[Lua] Could not load script from file: " << fileName << std::endl;
+		L = nullptr;
 	}
+	loaded = true;
 }
-
 
 LuaHandler::~LuaHandler()
 {
-	if (L) lua_close(L);
+
 }
 
-void LuaHandler::printError(const std::string & variableName, const std::string & reason)
-{
-	std::cout << "Error getting variable [" << variableName << "]. Reason: " << reason << std::endl;
-}

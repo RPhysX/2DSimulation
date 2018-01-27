@@ -76,12 +76,12 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\Users\cesar\Desktop\C++ Deps\SDL2-2.0.6\include;C:\Users\cesar\Desktop\C++ Deps\SDL2_image-2.0.1\include;C:\Users\cesar\Desktop\C++ Deps\lua-5.3.4_Win32_dllw4_lib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\cesar\Desktop\C++ Deps\SDL2-2.0.6\include;C:\Users\cesar\Desktop\C++ Deps\SDL2_image-2.0.1\include;C:\Users\cesar\Desktop\C++ Deps\lua-5.3.4_Win32_dllw4_lib\include;C:\Users\cesar\Desktop\C++ Deps\LuaBridge-1.0.2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>C:\Users\cesar\Desktop\C++ Deps\SDL2-2.0.6\lib\x86;C:\Users\cesar\Desktop\C++ Deps\SDL2_image-2.0.1\lib\x86;C:\Users\cesar\Desktop\C++ Deps\lua-5.3.4_Win32_dllw4_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;liblua53.a;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>

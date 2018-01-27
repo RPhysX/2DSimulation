@@ -1,6 +1,10 @@
 #pragma once
 #include <iostream>
+#include <vector>
 #include <string>
+#include <functional>
+#include <mutex>
+
 /*
 *  =======================================================
 *  luahandler.h
@@ -23,127 +27,98 @@ extern "C" {
 	#include <lualib.h>
 }
 
+#include <LuaBridge.h>
+
 class LuaHandler
 {
 public:
-	LuaHandler(const std::string& filename);
+	LuaHandler(const std::string& fileName);
 	~LuaHandler();
 
-	void printError(const std::string& variableName, const std::string& reason);
+	bool reload();
 
 	template<typename T>
-	T get(const std::string& variableName)
+	inline T getVariable(const std::string& variableName)
 	{
-		if (!L) {
-			printError(variableName, "Script is not loaded");
-			return lua_getdefault<T>();
+		if (!loaded)
+			return NULL;
+		mtx.lock();
+		luabridge::LuaRef var = luabridge::getGlobal(L, variableName.c_str());
+		mtx.unlock();
+		if (var.isFunction())
+		{
+			std::cout << "[Lua] " << variableName << " is a function - please use getFunction() method." << std::endl;
 		}
-
-		T result;
-		if (lua_gettostack(variableName)) { // variable succesfully on top of stack
-			result = lua_get<T>(variableName);
+		if (var.isNil())
+		{
+			std::cout << "[Lua] Variable not found: " << variableName << std::endl;
+			return NULL;
 		}
-		else {
-			result = lua_getdefault<T>();
-		}
-
-		lua_pop(L, level + 1); // pop all existing elements from stack
-		return result;
-	}
-
-	bool luagettostack(const std::string& variableName)
-	{
-		int level = 0;
-		std::string var = "";
-		for (unsigned int i = 0; i < variableName.size(); i++) {
-			if (variableName.at(i) == '.') {
-				if (level == 0) {
-					lua_getglobal(L, var.c_str());
-				}
-				else {
-					lua_getfield(L, -1, var.c_str());
-				}
-
-				if (lua_isnil(L, -1)) {
-					printError(variableName, var + " is not defined");
-					return false;
-				}
-				else {
-					var = "";
-					level++;
-				}
-			}
-			else {
-				var += variableName.at(i);
-			}
-		}
-		if (level == 0) {
-			lua_getglobal(L, var.c_str());
-		}
-		else {
-			lua_getfield(L, -1, var.c_str());
-		}
-		if (lua_isnil(L, -1)) {
-			printError(variableName, var + " is not defined");
-			return false;
-		}
-
-		return true;
+		return var.cast<T>();
 	}
 
 	template<typename T>
-	T lua_get(const std::string& variableName)
+	inline T getVariable(const std::string& tableName, const std::string& variableName)
 	{
-		return 0;
+		if (!loaded)
+			return NULL;
+		mtx.lock();
+		luabridge::LuaRef table = luabridge::getGlobal(L, tableName.c_str());
+		mtx.unlock();
+		if (table.isNil() || !table.isTable())
+		{
+			std::cout << "[Lua] Table not found: " << tableName << std::endl;
+			return NULL;
+		}
+
+		mtx.lock();
+		luabridge::LuaRef ret = table[variableName.c_str()];
+		mtx.unlock();
+		if (ret.isNil())
+		{
+			std::cout << "[Lua] Variable not found: " << variableName << std::endl;
+			return NULL;
+		}
+		return ret.cast<T>();
 	}
 
-	template<typename T>
-	T lua_getdefault(const std::string& variableName)
+	template<typename T, typename... Args>
+	inline std::function<T(Args ... args)> getFunction(const std::string& functionName)
 	{
-		return 0;
-	}
-
-	/* Template specializations */
-
-	template<>
-	inline std::string lua_getdefault(const std::string& variableName) {
-		return "null";
-	}
-
-	template <>
-	inline bool lua_get(const std::string& variableName) {
-		return (bool)lua_toboolean(L, -1);
-	}
-
-	template <>
-	inline float lua_get(const std::string& variableName) {
-		if (!lua_isnumber(L, -1)) {
-			printError(variableName, "Not a number");
+		if (!loaded)
+			return NULL;
+		mtx.lock();
+		luabridge::LuaRef func = luabridge::getGlobal(L, functionName.c_str());
+		mtx.unlock();
+		if (!func.isFunction() || func.isNil())
+		{
+			std::cout << "[Lua] Function not found: " << functionName << std::endl;
+			//return std::function<T(Args ... args)>();
 		}
-		return (float)lua_tonumber(L, -1);
-	}
-
-	template <>
-	inline int lua_get(const std::string& variableName) {
-		if (!lua_isnumber(L, -1)) {
-			printError(variableName, "Not a number");
-		}
-		return (int)lua_tonumber(L, -1);
-	}
-
-	template <>
-	inline std::string lua_get(const std::string& variableName) {
-		std::string s = "null";
-		if (lua_isstring(L, -1)) {
-			s = std::string(lua_tostring(L, -1));
-		}
-		else {
-			printError(variableName, "Not a string");
-		}
-		return s;
+		std::function<T(Args ... args)> lambda = func;
+		//return func(3, 4);
+		return lambda;
 	}
 
 private:
 	lua_State* L;
+	std::string fileName;
+	bool loaded = false;
+	std::mutex mtx;
 };
 
+inline bool LuaHandler::reload()
+{
+	lua_State* newL;
+	newL = luaL_newstate();
+	if (luaL_dofile(newL, fileName.c_str()))
+	{
+		std::cout << "[Lua] Could not load script from file: " << fileName << std::endl;
+		newL = nullptr;
+		return false;
+	}
+	mtx.lock();
+	L = newL;
+	mtx.unlock();
+	return true;
+}
