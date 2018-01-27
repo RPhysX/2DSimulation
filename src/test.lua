@@ -6,3 +6,8 @@ return value
 end
 
 post = 4;
+
+table1 = 
+{
+	v1 = 10;
+}

@@ -43,9 +43,11 @@ int main(int argc, char** argv)
 	auto sum = l->getFunction<int, int, int>("sum");
 	auto res = sum(3, 4);
 	auto post = l->getVariable<int>("post");
+	auto tableV1 = l->getVariable<int>("table1", "v1");
 
 	std::cout << "Result: " << res << std::endl;
 	std::cout << "Post val: " << post << std::endl;
+	std::cout << "V1: " << tableV1 << std::endl;
 
 
 	Application* app = Application::Instance();
@@ -55,7 +57,7 @@ int main(int argc, char** argv)
 	{
 		auto sum = l->getFunction<float, int, int>("sum");
 		auto res = sum(3, 4);
-		std::cout << "Func: " << res << std::endl;
+		//std::cout << "Func: " << res << std::endl;
 		app->handleEvents();
 		app->update();
 		app->draw();

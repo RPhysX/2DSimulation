@@ -65,10 +65,6 @@ public:
 		mtx.lock();
 		luabridge::LuaRef table = luabridge::getGlobal(L, tableName.c_str());
 		mtx.unlock();
-		if (var.isFunction())
-		{
-			std::cout << "[Lua] " << variableName << " is a function - please use getFunction() method." << std::endl;
-		}
 		if (table.isNil() || !table.isTable())
 		{
 			std::cout << "[Lua] Table not found: " << tableName << std::endl;
@@ -107,7 +103,7 @@ public:
 private:
 	lua_State* L;
 	std::string fileName;
-	bool loaded;
+	bool loaded = false;
 	std::mutex mtx;
 };
 
