@@ -48,7 +48,7 @@ const SDL_Rect * Entity::getSize() const
 	return size;
 }
 
-void Entity::setPosition(float x, float y)
+void Entity::setPosition(float x, float y) const
 {
 	size->x = (int)round(x);
 	size->y = (int)round(y);

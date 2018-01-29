@@ -5,6 +5,8 @@
 #include "../Common/texture.h"
 #include "../Utils/common.h"
 #include "../Core/atom.h"
+#include "../Utils/manager.h"
+#include "../Common/luahandler.h"
 /*
 *  =======================================================
 *  splaying.h
@@ -42,8 +44,12 @@ public:
 
 
 private:
+
+	LuaHandler* scriptHandler;
+
+	std::function<void(Entity)> func;
+
 	Renderer masterRenderer;
-	Entity* test[2];
-	Atom* atm[2];
+	Manager<Entity> entities;
 };
 

@@ -33,7 +33,7 @@ public:
 	Texture* getModel();
 	const SDL_Rect * getSize() const;
 
-	void setPosition(float x, float y);
+	void setPosition(float x, float y) const;
 	
 
 private:

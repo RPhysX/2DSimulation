@@ -111,6 +111,7 @@
     <ClCompile Include="src\renderer\renderer.cpp" />
     <ClCompile Include="src\states\splaying.cpp" />
     <ClCompile Include="src\states\state.cpp" />
+    <ClCompile Include="src\Utils\manager.cpp" />
     <ClCompile Include="src\utils\singleton.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +124,7 @@
     <ClInclude Include="src\states\splaying.h" />
     <ClInclude Include="src\states\state.h" />
     <ClInclude Include="src\utils\common.h" />
+    <ClInclude Include="src\Utils\manager.h" />
     <ClInclude Include="src\utils\math.h" />
     <ClInclude Include="src\utils\singleton.h" />
   </ItemGroup>
